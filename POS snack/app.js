@@ -11,14 +11,34 @@ const defaultInventory = [
 ];
 
 // Initialize global state from LocalStorage
-let inventory = JSON.parse(localStorage.getItem('posInventory'));
-if (!inventory || inventory.length === 0) {
+let inventory;
+try {
+    inventory = JSON.parse(localStorage.getItem('posInventory'));
+    if (!Array.isArray(inventory) || inventory.length === 0) {
+        inventory = defaultInventory;
+        localStorage.setItem('posInventory', JSON.stringify(inventory));
+    }
+} catch(e) {
     inventory = defaultInventory;
     localStorage.setItem('posInventory', JSON.stringify(inventory));
 }
 
-let cart = JSON.parse(localStorage.getItem('posCart')) || [];
+let cart;
+try {
+    cart = JSON.parse(localStorage.getItem('posCart'));
+    if (!Array.isArray(cart)) cart = [];
+} catch(e) {
+    cart = [];
+}
 const TAX_RATE = 0.08;
+
+// Global error handler to help debug on mobile
+window.addEventListener('error', function(e) {
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:9999;padding:10px;font-size:12px;';
+    errorDiv.textContent = 'Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
+    document.body.appendChild(errorDiv);
+});
 
 const isInventoryPage = document.body.dataset.page === 'inventory';
 
