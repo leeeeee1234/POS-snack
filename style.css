@@ -127,3 +127,81 @@ input[type=number]::-webkit-outer-spin-button {
     .bg-dark, .bg-secondary, .text-light, .text-white { background: white !important; color: black !important; border-color: black !important; }
     button { display: none !important; }
 }
+
+/* =========================================
+   Cozy Theme Overrides
+   ========================================= */
+body {
+    background-color: #fdf6e3 !important; /* Warm off-white */
+    color: #493628 !important; /* Deep brown */
+}
+
+::-webkit-scrollbar-track {
+    background: #fdf6e3 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d4c4b7 !important;
+    border-radius: 3px;
+}
+
+.bg-dark {
+    background-color: #f4e8d3 !important;
+    color: #493628 !important;
+}
+
+.bg-secondary {
+    background-color: #ffffff !important;
+    color: #493628 !important;
+}
+
+.border-secondary, .border-dark {
+    border-color: #e6d5b8 !important;
+}
+
+.text-white, .text-light {
+    color: #493628 !important;
+}
+
+.btn-primary {
+    background-color: #c97a7e !important; /* Muted rose */
+    border-color: #c97a7e !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover, .btn-primary.active {
+    background-color: #b56b6f !important;
+    border-color: #b56b6f !important;
+}
+
+.btn-outline-light {
+    color: #493628 !important;
+    border-color: #d4c4b7 !important;
+}
+
+.btn-outline-light:hover {
+    background-color: #e6d5b8 !important;
+    color: #493628 !important;
+    border-color: #e6d5b8 !important;
+}
+
+.btn-secondary {
+    background-color: #d4c4b7 !important;
+    border-color: #d4c4b7 !important;
+    color: #493628 !important;
+}
+
+.btn-success {
+    background-color: #8fa082 !important; /* Sage green */
+    border-color: #8fa082 !important;
+    color: #ffffff !important;
+}
+
+.text-secondary {
+    color: #8e7f74 !important;
+}
+
+/* Modal text should remain visible in cozy theme */
+#checkoutModal .text-white {
+    color: #493628 !important;
+}

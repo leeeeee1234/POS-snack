@@ -30,7 +30,6 @@ try {
 } catch(e) {
     cart = [];
 }
-const TAX_RATE = 0.08;
 
 // Global error handler to help debug on mobile
 window.addEventListener('error', function(e) {
@@ -78,7 +77,7 @@ function renderProducts() {
                     ${p.name}
                 </div>
                 <div class="card-body d-flex flex-column justify-content-between p-2">
-                    <div class="fw-bold text-light mb-2">$${parseFloat(p.price).toFixed(2)}</div>
+                    <div class="fw-bold text-light mb-2">₱${parseFloat(p.price).toFixed(2)}</div>
                     <div class="d-flex align-items-center justify-content-between bg-dark rounded border border-secondary p-1">
                         <button class="btn btn-sm btn-secondary qty-btn" onclick="updateQty(${p.id}, -1)">-</button>
                         <span class="fw-bold px-2" id="qty-${p.id}">${qty}</span>
@@ -153,10 +152,10 @@ function updateCartUI() {
             cartItemEl.innerHTML = `
                 <div class="d-flex justify-content-between mb-2">
                     <span class="fw-bold text-white">${item.name}</span>
-                    <span class="fw-bold text-white">$${itemTotal.toFixed(2)}</span>
+                    <span class="fw-bold text-white">₱${itemTotal.toFixed(2)}</span>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="text-light small">$${parseFloat(item.price).toFixed(2)} each</span>
+                    <span class="text-light small">₱${parseFloat(item.price).toFixed(2)} each</span>
                     <div class="d-flex align-items-center bg-dark rounded border border-dark p-1">
                         <button class="btn btn-sm btn-secondary p-0" style="width:25px; height:25px;" onclick="updateQty(${item.id}, -1)">-</button>
                         <span class="fw-bold text-center px-2" style="min-width: 30px;">${item.qty}</span>
@@ -171,15 +170,18 @@ function updateCartUI() {
         });
     }
 
-    const tax = subtotal * TAX_RATE;
-    const total = subtotal + tax;
+    const total = subtotal;
 
-    document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('cartTax').textContent = `$${tax.toFixed(2)}`;
-    document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    if (cartSubtotalEl) cartSubtotalEl.textContent = `₱${subtotal.toFixed(2)}`;
+    
+    const cartTaxEl = document.getElementById('cartTax');
+    if (cartTaxEl) cartTaxEl.textContent = `₱0.00`;
+
+    document.getElementById('cartTotal').textContent = `₱${total.toFixed(2)}`;
     document.getElementById('mobileCartCount').textContent = itemCount;
-    document.getElementById('mobileCartTotal').textContent = `$${total.toFixed(2)}`;
-    document.getElementById('modalTotal').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('mobileCartTotal').textContent = `₱${total.toFixed(2)}`;
+    document.getElementById('modalTotal').textContent = `₱${total.toFixed(2)}`;
     
     // reset grid elements if not in cart
     inventory.forEach(p => {
@@ -345,7 +347,7 @@ function renderInventoryTable() {
             <td><div class="product-color-preview" style="background-color: ${p.color}"></div></td>
             <td class="fw-bold">${p.name}</td>
             <td class="text-capitalize">${p.category}</td>
-            <td>$${parseFloat(p.price).toFixed(2)}</td>
+            <td>₱${parseFloat(p.price).toFixed(2)}</td>
             <td class="text-end pe-4">
                 <button class="btn btn-sm btn-danger shadow-sm" onclick="deleteProduct(${p.id})">
                     <i class="bi bi-trash3 me-1"></i> Delete
