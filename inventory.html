@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Inventory Management - Offline</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { overflow: auto; padding-bottom: 2rem; }
+        .product-color-preview { width: 30px; height: 30px; border-radius: 5px; display: inline-block; vertical-align: middle; border: 1px solid #495057;}
+    </style>
+</head>
+<body class="bg-dark text-light" data-page="inventory">
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold m-0"><i class="bi bi-box-seam me-2"></i>Inventory Management</h2>
+        <a href="index.html" class="btn btn-outline-light"><i class="bi bi-arrow-left me-1"></i> Back to POS</a>
+    </div>
+
+    <div id="messageContainer"></div>
+
+    <div class="card bg-secondary text-light border-0 shadow-sm mb-4">
+        <div class="card-header bg-dark border-secondary fw-bold fs-5">Add New Snack</div>
+        <div class="card-body p-4">
+            <form id="addSnackForm">
+                <div class="row g-3">
+                    <div class="col-12 col-md-3">
+                        <label class="form-label text-white">Name</label>
+                        <input type="text" id="addName" class="form-control bg-dark text-light border-secondary" required placeholder="e.g. Diet Cola">
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label text-white">Category</label>
+                        <select id="addCategory" class="form-select bg-dark text-light border-secondary" required>
+                            <option value="drinks">Drinks</option>
+                            <option value="chips">Chips</option>
+                            <option value="candy">Candy</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <label class="form-label text-white">Price ($)</label>
+                        <input type="number" step="0.01" min="0.01" id="addPrice" class="form-control bg-dark text-light border-secondary" required placeholder="0.00">
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <label class="form-label text-white">Color Theme</label>
+                        <input type="color" id="addColor" class="form-control form-control-color w-100 bg-dark border-secondary" value="#0d6efd" title="Choose product color">
+                    </div>
+                    <div class="col-12 col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm"><i class="bi bi-plus-lg me-1"></i> Add Item</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card bg-secondary text-light border-0 shadow-sm">
+        <div class="card-header bg-dark border-secondary fw-bold fs-5">Current Inventory</div>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover table-striped mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Color</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th class="text-end pe-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                    <!-- Injected by app.js -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
