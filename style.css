@@ -1,10 +1,14 @@
 /* Custom styles to complement Bootstrap */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #212529; /* Bootstrap bg-dark */
     color: #f8f9fa; /* Bootstrap text-light */
     overflow: hidden; /* Prevent body scrolling for app-like feel */
-    height: 100vh;
-    height: 100dvh;
 }
 
 /* Custom scrollbar */
@@ -90,8 +94,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .main-content {
-    height: 100vh;
-    height: 100dvh;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -105,8 +108,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .cart-panel {
-    height: 100vh;
-    height: 100dvh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #343a40;
