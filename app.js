@@ -288,6 +288,9 @@ function setupPOSEventListeners() {
             
             printReceiptBtn.classList.remove('d-none');
             
+            const orderTotal = cart.reduce((sum, item) => sum + (parseFloat(item.price) * item.qty), 0);
+            updateDailyRevenue(orderTotal);
+
             cart = [];
             localStorage.setItem('posCart', JSON.stringify(cart));
             updateCartUI();
@@ -300,6 +303,7 @@ function setupPOSEventListeners() {
 // ==========================================
 function initInventoryPage() {
     renderInventoryTable();
+    updateRevenueDisplay();
     
     document.getElementById('addSnackForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -383,4 +387,48 @@ function showMessage(msg, type) {
     setTimeout(() => {
         container.innerHTML = '';
     }, 3000);
+}
+
+function updateDailyRevenue(amount) {
+    const today = new Date().toLocaleDateString();
+    let revenueData;
+    try {
+        revenueData = JSON.parse(localStorage.getItem('posDailyRevenue')) || {};
+    } catch(e) {
+        revenueData = {};
+    }
+
+    if (revenueData.date !== today) {
+        revenueData = { date: today, total: 0 };
+    }
+    
+    revenueData.total += amount;
+    localStorage.setItem('posDailyRevenue', JSON.stringify(revenueData));
+}
+
+function updateRevenueDisplay() {
+    const today = new Date().toLocaleDateString();
+    let revenueData;
+    try {
+        revenueData = JSON.parse(localStorage.getItem('posDailyRevenue')) || {};
+    } catch(e) {
+        revenueData = {};
+    }
+
+    let dailyTotal = 0;
+    if (revenueData.date === today) {
+        dailyTotal = revenueData.total;
+    }
+
+    const dateDisplay = document.getElementById('todayDateDisplay');
+    const revenueDisplay = document.getElementById('dailyRevenueDisplay');
+    
+    if (dateDisplay) {
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        dateDisplay.textContent = new Date().toLocaleDateString(undefined, options);
+    }
+    
+    if (revenueDisplay) {
+        revenueDisplay.textContent = `₱${dailyTotal.toFixed(2)}`;
+    }
 }
