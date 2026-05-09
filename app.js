@@ -251,14 +251,44 @@ function setupPOSEventListeners() {
     const paymentMethodsContainer = document.getElementById('paymentMethods');
     const checkoutMessage = document.getElementById('checkoutMessage');
     const printReceiptBtn = document.getElementById('printReceiptBtn');
+    const cashInputSection = document.getElementById('cashInputSection');
+    const amountTendered = document.getElementById('amountTendered');
+    const changeAmountDisplay = document.getElementById('changeAmountDisplay');
     let selectedPaymentMethod = null;
+
+    function calculateChange() {
+        const orderTotal = cart.reduce((sum, item) => sum + (parseFloat(item.price) * item.qty), 0);
+        const tendered = parseFloat(amountTendered.value) || 0;
+        const change = tendered - orderTotal;
+
+        if (tendered >= orderTotal && orderTotal > 0) {
+            changeAmountDisplay.textContent = `₱${change.toFixed(2)}`;
+            changeAmountDisplay.classList.remove('text-danger');
+            changeAmountDisplay.classList.add('text-success');
+            completePaymentBtn.disabled = false;
+        } else {
+            changeAmountDisplay.textContent = `₱0.00`;
+            changeAmountDisplay.classList.remove('text-success');
+            changeAmountDisplay.classList.add('text-danger');
+            completePaymentBtn.disabled = true;
+        }
+    }
+
+    amountTendered.addEventListener('input', calculateChange);
 
     paymentMethods.forEach(method => {
         method.addEventListener('click', () => {
             paymentMethods.forEach(m => m.classList.remove('border-primary', 'bg-dark'));
             method.classList.add('border-primary', 'bg-dark');
             selectedPaymentMethod = method.dataset.method;
-            completePaymentBtn.disabled = false;
+            
+            if (selectedPaymentMethod === 'Cash') {
+                cashInputSection.classList.remove('d-none');
+                calculateChange();
+            } else {
+                cashInputSection.classList.add('d-none');
+                completePaymentBtn.disabled = false;
+            }
         });
     });
 
@@ -269,6 +299,11 @@ function setupPOSEventListeners() {
         paymentMethodsContainer.classList.remove('d-none');
         printReceiptBtn.classList.add('d-none');
         checkoutMessage.classList.add('d-none');
+        cashInputSection.classList.add('d-none');
+        amountTendered.value = '';
+        changeAmountDisplay.textContent = '₱0.00';
+        changeAmountDisplay.classList.remove('text-danger');
+        changeAmountDisplay.classList.add('text-success');
         paymentMethods.forEach(m => m.classList.remove('border-primary', 'bg-dark'));
         selectedPaymentMethod = null;
     });
