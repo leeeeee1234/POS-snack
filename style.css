@@ -3,6 +3,8 @@ body {
     background-color: #212529; /* Bootstrap bg-dark */
     color: #f8f9fa; /* Bootstrap text-light */
     overflow: hidden; /* Prevent body scrolling for app-like feel */
+    height: 100vh;
+    height: 100dvh;
 }
 
 /* Custom scrollbar */
@@ -29,6 +31,7 @@ input[type=number]::-webkit-outer-spin-button {
     overflow-x: auto;
     white-space: nowrap;
     padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .category-nav::-webkit-scrollbar {
@@ -88,6 +91,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .main-content {
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
 }
@@ -96,10 +100,13 @@ input[type=number]::-webkit-outer-spin-button {
     flex: 1;
     overflow-y: auto;
     padding-bottom: 80px; /* Space for mobile cart button */
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
 }
 
 .cart-panel {
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     background-color: #343a40;
@@ -109,6 +116,8 @@ input[type=number]::-webkit-outer-spin-button {
 .cart-items-container {
     flex: 1;
     overflow-y: auto;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Mobile cart slide-in */

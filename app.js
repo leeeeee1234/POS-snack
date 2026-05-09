@@ -293,6 +293,9 @@ function setupPOSEventListeners() {
     });
 
     document.getElementById('checkoutModal').addEventListener('show.bs.modal', () => {
+        // Hide cart panel on mobile to prevent layering issues
+        document.getElementById('cartPanel').classList.remove('show');
+        
         completePaymentBtn.classList.remove('d-none');
         completePaymentBtn.disabled = true;
         completePaymentBtn.textContent = 'Complete Payment';
