@@ -311,7 +311,6 @@ function initInventoryPage() {
         const name = document.getElementById('addName').value.trim();
         const category = document.getElementById('addCategory').value;
         const price = parseFloat(document.getElementById('addPrice').value);
-        const color = document.getElementById('addColor').value;
         
         if (name && price > 0) {
             // Generate a simple numeric ID based on max existing ID
@@ -321,8 +320,7 @@ function initInventoryPage() {
                 id: newId,
                 name,
                 category,
-                price,
-                color
+                price
             });
             
             localStorage.setItem('posInventory', JSON.stringify(inventory));
@@ -348,7 +346,6 @@ function renderInventoryTable() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td class="ps-4">${p.id}</td>
-            <td><div class="product-color-preview" style="background-color: ${p.color}"></div></td>
             <td class="fw-bold">${p.name}</td>
             <td class="text-capitalize">${p.category}</td>
             <td>₱${parseFloat(p.price).toFixed(2)}</td>

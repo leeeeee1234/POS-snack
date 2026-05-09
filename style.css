@@ -37,16 +37,22 @@ input[type=number]::-webkit-outer-spin-button {
 
 .product-card {
     cursor: pointer;
-    transition: transform 0.1s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     user-select: none;
     border: 1px solid #495057;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15) !important;
 }
 
 .product-card:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
 }
 
-.product-color-box {
+.product-image-box {
     height: 100px;
     display: flex;
     align-items: center;
@@ -55,7 +61,29 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 10px;
     font-weight: bold;
     font-size: 1.1rem;
-    color: white;
+    color: #493628;
+    background: linear-gradient(135deg, #e6d5b8 0%, #d4c4b7 100%);
+    transition: all 0.3s ease;
+}
+
+.product-item[data-category="drinks"] .product-image-box { background: linear-gradient(135deg, #a8b5cc 0%, #8ca0bc 100%); }
+.product-item[data-category="chips"] .product-image-box { background: linear-gradient(135deg, #e2b998 0%, #d19a6b 100%); }
+.product-item[data-category="candy"] .product-image-box { background: linear-gradient(135deg, #d3a4b0 0%, #c97a7e 100%); }
+.product-item[data-category="snacks"] .product-image-box { background: linear-gradient(135deg, #b8cba8 0%, #8fa082 100%); }
+
+/* Smooth buttons */
+.btn { transition: all 0.2s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.95); }
+
+/* Cart animations */
+.cart-item-anim {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .main-content {
